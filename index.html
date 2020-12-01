@@ -5,15 +5,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Test Page</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.js"></script>
-    <script type="text/javascript">
-        // get the url of the current page
+    <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script>
+        var ipData;
+        var enhanceData;
+        $( document ).ready(function() {
+            $.getJSON('http://ip-api.com/json?callback=?', function(data) {
+                ipData = data;
+            })
+            .then(
+                function() {
+                    console.log("IP DATA: " + JSON.stringify(ipData, null, 2));
+                    payload = {
+                        "token": "d47c90a467c5465863839dee14650030",
+                        "ip": ipData["query"],
+                        "size": 1,
+                        "threshold": .5
+                    };
+                    $.getJSON('https://kg.diffbot.com/kg/v3/enhance_endpoint', payload, function(data) {
+                        enhanceData = data;
+                    })
+                    .then(
+                        function() {
+                            console.log(JSON.stringify("ENHANCE DATA: " + JSON.stringify(enhanceData, null, 2)));
+                        }
+                    )
+                }
+            )
+            
+        });
         let currUrl = window.location.href;
+        console.log("CURRENT URL: " + currUrl);
     </script>
 </head>
 
 <body>
-
+    HELLO
 </body>
 
 </html>
