@@ -10,9 +10,11 @@
         const clientId = "842517711072-bd99mv7a76njgr03dn8gnol9qikm19om.apps.googleusercontent.com";
         const clientSecret = "jDCitjD5DZBtkJ-5YWtfOYEe";
         const apiKey = "AIzaSyBxAJ6Kl2eWC-nGFtHOWG2Gw-ImzkaEmhQ";
-        
+        const scope = "";
+
         var ipData;
         var enhanceData;
+        var spreadsheetID = "1AOzMA60xYUxHI37kE5HOdUvuSchPK-_arOAj7IiICTQ";
         $( document ).ready(
             function() {
                 $.getJSON('http://ip-api.com/json/?fields=17035263', function(data) {
@@ -28,11 +30,12 @@
                             "threshold": .5
                         };
                         $.getJSON('https://kg.diffbot.com/kg/v3/enhance_endpoint', payload, function(data) {
-                            enhanceData = data;
+                            enhanceData = data['data'];
                         })
                         .then(
                             function() {
                                 // console.log(JSON.stringify("ENHANCE DATA: " + JSON.stringify(enhanceData, null, 2)));
+                                // IP Data
                                 var IP = ipData["query"];
                                 var ISP = ipData["isp"];
                                 var Proxy = ipData["proxy"];
@@ -44,10 +47,30 @@
                                 var IP_Postal = ipData["zip"];
                                 var IP_Timezone = ipData["timezone"];
 
-                                var body = {
-                                    values: [IP, ISP, Proxy, Hosting, IP_City, IP_Region, 
-                                            IP_Country, IP_LatLong, IP_Postal, IP_Timezone]
-                                };
+                                // initialize Diffbot data to empty strings
+                                var DiffbotID = "";
+                                var Name = "";
+                                var Homepage = "";
+                                var Description = "";
+                                var Logo = "";
+                                var Employees = "";
+                                var Address = "";
+                                var Industries = "";
+                                var DiffbotFound = "FALSE";
+
+                                // populate Diffbot data if found
+                                if (enhanceData.length !== 0){
+                                    DiffbotID = enhanceData[0]['entity']['id'];
+                                    Name = enhanceData[0]['entity']['name'];
+                                    Homepage = enhanceData[0]['entity']['homepageUri'];
+                                    Description = enhanceData[0]['entity']['description'];
+                                    Logo = enhanceData[0]['entity']['logo'];
+                                    Employees = enhanceData[0]['entity']['nbEmployeesMin'] + "-" + enhanceData[0]['entity']['nbEmployeesMax'];
+                                    Address = enhanceData[0]['entity']['location']['address'];
+                                    Industries = enhanceData[0]['entity']['industries'];
+                                    DiffbotFound = "TRUE";
+                                }
+                                console.log(DiffbotID);
                             }
                         )
                     }
@@ -56,6 +79,7 @@
         let currUrl = window.location.href;
         console.log("CURRENT URL: " + currUrl);
     </script>
+    <script src="https://apis.google.com/js/api.js"></script>
 </head>
 
 <body>
