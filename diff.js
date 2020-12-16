@@ -13,7 +13,7 @@ const diffbotToken = "ba9bef12e8ed1656418df54db3c98bb8";
  * https://docs.google.com/spreadsheets/d/1AOzMA60xYUxHI37kE5HOdUvuSchPK-_arOAj7IiICTQ/edit?usp=sharing
  * @param  pem           PEM-encoded private key for the service account
  */
-async function main(pem) {
+const main = async (pem) => {
   // get basic geolocation data from IP address
   // limited to 45 HTTP requests per minute
   const ipRes = await fetch("http://ip-api.com/json/?fields=17035263").catch(
@@ -30,30 +30,32 @@ async function main(pem) {
   const ipData = await ipRes.json();
 
   // extract IP data fields
-  var IP = ipData["query"];
-  var ISP = ipData["isp"];
-  var Proxy = ipData["proxy"].toString();
-  var Hosting = ipData["hosting"].toString();
-  var IP_City = ipData["city"];
-  var IP_Region = ipData["regionName"];
-  var IP_Country = ipData["countryCode"];
-  var IP_LatLong = ipData["lat"] + "," + ipData["lon"];
-  var IP_Postal = ipData["zip"];
-  var IP_Timezone = ipData["timezone"];
+
+  // const IP = ipData["query"];
+  const IP = "168.233.254.6"
+  const ISP = ipData["isp"];
+  const Proxy = ipData["proxy"].toString();
+  const Hosting = ipData["hosting"].toString();
+  const IP_City = ipData["city"];
+  const IP_Region = ipData["regionName"];
+  const IP_Country = ipData["countryCode"];
+  const IP_LatLong = ipData["lat"] + "," + ipData["lon"];
+  const IP_Postal = ipData["zip"];
+  const IP_Timezone = ipData["timezone"];
 
   // get client's current URL
   const currUrl = window.location.href;
 
   // initialize Diffbot data to empty strings
-  var DiffbotID = "";
-  var Name = "";
-  var Homepage = "";
-  var Description = "";
-  var Logo = "";
-  var Employees = "";
-  var Address = "";
-  var Industries = "";
-  var DiffbotFound = "FALSE";
+  let DiffbotID = "";
+  let Name = "";
+  let Homepage = "";
+  let Description = "";
+  let Logo = "";
+  let Employees = "";
+  let Address = "";
+  let Industries = "";
+  let DiffbotFound = "FALSE";
 
   // get enhanced data from IP address via DiffBot
   const params = {
@@ -63,7 +65,7 @@ async function main(pem) {
     threshold: 0.25,
   };
 
-  var diffRes = await fetch(
+  const diffRes = await fetch(
     "https://kg.diffbot.com/kg/v3/enhance_endpoint?" +
       new URLSearchParams(params)
   ).catch((error) => {
@@ -160,12 +162,12 @@ $(document).ready(main());
  * Reference this guide:
  * https://developers.google.com/identity/protocols/oauth2/service-account
  */
-async function getToken(pem) {
+const getToken = async (pem) => {
   //form the JWT header
-  var header = { alg: "RS256", typ: "JWT" };
+  const header = { alg: "RS256", typ: "JWT" };
 
   // form the claim set
-  var claims = {
+  const claims = {
     iss: "diffbot@enhanceip.iam.gserviceaccount.com",
     scope: "https://www.googleapis.com/auth/spreadsheets",
     aud: "https://oauth2.googleapis.com/token",
@@ -226,8 +228,8 @@ async function getToken(pem) {
  * Reference SubtleCrypto.sign() at
  * https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/sign
  */
-async function getSignature(pem, input) {
-  privateKey = await importPrivateKey(pem);
+const getSignature = async (pem, input) => {
+  const privateKey = await importPrivateKey(pem);
   const enc = new TextEncoder();
   const encodedMessage = enc.encode(input);
   const signature = await window.crypto.subtle.sign(
@@ -245,7 +247,7 @@ async function getSignature(pem, input) {
  * Reference PKCS #8 import at
  * https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/importKey#Examples
  */
-function importPrivateKey(pem) {
+const importPrivateKey = (pem) => {
   // fetch the part of the PEM string between header and footer
   const pemHeader = "-----BEGIN PRIVATE KEY-----";
   const pemFooter = "-----END PRIVATE KEY-----";
@@ -278,7 +280,7 @@ function importPrivateKey(pem) {
  * Convert a string into an ArrayBuffer from
  * https://developers.google.com/web/updates/2012/06/How-to-convert-ArrayBuffer-to-and-from-String
  */
-function str2ab(str) {
+const str2ab = (str) => {
   const buf = new ArrayBuffer(str.length);
   const bufView = new Uint8Array(buf);
   for (let i = 0, strLen = str.length; i < strLen; i++) {
