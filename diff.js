@@ -60,7 +60,7 @@ const main = async (pem) => {
   // get enhanced data from IP address via DiffBot
   const params = {
     token: diffbotToken,
-    ip: ipData["query"],
+    ip: IP,
     size: 1,
     threshold: 0.25,
   };
