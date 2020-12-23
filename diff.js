@@ -31,7 +31,8 @@ const main = async (pem) => {
 
   // extract IP data fields
 
-  const IP = ipData["query"];
+  // const IP = ipData["query"];
+  const IP = "168.233.254.6";
   const ISP = ipData["isp"];
   const Proxy = ipData["proxy"].toString();
   const Hosting = ipData["hosting"].toString();
