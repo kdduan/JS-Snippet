@@ -16,11 +16,11 @@ const diffbotToken = "837e61b83a5050ebaa9d7d9bc8bf8626";
 const main = async (pem) => {
   // get basic geolocation data from IP address
   // limited to 45 HTTP requests per minute
-  const ipRes = await fetch("http://ip-api.com/json/?fields=17035263").catch(
-    (error) => {
-      console.error("IP address request failed: " + error);
-    }
-  );
+  const ipRes = await fetch(
+    "https://geo.ipify.org/api/v1?apiKey=at_J6krgVR2g1WZElTrYjaekinz2py6z"
+  ).catch((error) => {
+    console.error("IP address request failed: " + error);
+  });
 
   // stop function if request for IP fails
   if (ipRes === undefined || !ipRes.ok) {
@@ -31,16 +31,16 @@ const main = async (pem) => {
 
   // extract IP data fields
 
-  const IP = ipData["query"];
+  const IP = ipData["ip"];
   const ISP = ipData["isp"];
-  const Proxy = ipData["proxy"].toString();
-  const Hosting = ipData["hosting"].toString();
-  const IP_City = ipData["city"];
-  const IP_Region = ipData["regionName"];
-  const IP_Country = ipData["countryCode"];
-  const IP_LatLong = ipData["lat"] + "," + ipData["lon"];
-  const IP_Postal = ipData["zip"];
-  const IP_Timezone = ipData["timezone"];
+  const Proxy = ipData["proxy"]["proxy"].toString();
+  const IP_City = ipData["location"]["city"];
+  const IP_Region = ipData["location"]["region"];
+  const IP_Country = ipData["location"]["country"];
+  const IP_LatLong =
+    ipData["location"]["lat"] + "," + ipData["location"]["lng"];
+  const IP_Postal = ipData["location"]["postalCode"];
+  const IP_Timezone = ipData["location"]["timezone"];
 
   // get client's current URL
   const currUrl = window.location.href;
@@ -120,7 +120,6 @@ const main = async (pem) => {
                     { userEnteredValue: { stringValue: currUrl } },
                     { userEnteredValue: { stringValue: ISP } },
                     { userEnteredValue: { stringValue: Proxy } },
-                    { userEnteredValue: { stringValue: Hosting } },
                     { userEnteredValue: { stringValue: IP_City } },
                     { userEnteredValue: { stringValue: IP_Region } },
                     { userEnteredValue: { stringValue: IP_Country } },
