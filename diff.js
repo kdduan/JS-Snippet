@@ -5,7 +5,7 @@ const pemEncodedKey =
 const spreadsheetID = "1AOzMA60xYUxHI37kE5HOdUvuSchPK-_arOAj7IiICTQ";
 
 // this is a trial key
-const diffbotToken = "ba9bef12e8ed1656418df54db3c98bb8";
+const diffbotToken = "837e61b83a5050ebaa9d7d9bc8bf8626";
 
 /**
  * Gets data from client's IP address and writes to Google Sheets
@@ -148,7 +148,7 @@ const main = async (pem) => {
   ).catch((error) => {
     console.error("Google Sheets write request failed: " + error);
   });
-}
+};
 
 // run main function when document (page) is ready
 $(document).ready(main());
@@ -217,7 +217,7 @@ const getToken = async (pem) => {
     const tokenJson = await tokenRes.json();
     return tokenJson["access_token"];
   }
-}
+};
 
 /**
  * Generates a digital signature for the JWT
@@ -237,7 +237,7 @@ const getSignature = async (pem, input) => {
     encodedMessage
   );
   return signature;
-}
+};
 
 /**
  * Import a PEM encoded RSA private key, to use for RSA-PSS signing.
@@ -273,7 +273,7 @@ const importPrivateKey = (pem) => {
     true,
     ["sign"]
   );
-}
+};
 
 /**
  * Convert a string into an ArrayBuffer from
@@ -286,4 +286,4 @@ const str2ab = (str) => {
     bufView[i] = str.charCodeAt(i);
   }
   return buf;
-}
+};
