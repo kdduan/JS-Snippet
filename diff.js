@@ -61,7 +61,7 @@ const main = async (pem) => {
     token: diffbotToken,
     ip: IP,
     size: 1,
-    threshold: 0.25,
+    threshold: 0.1,
   };
 
   const diffRes = await fetch(
