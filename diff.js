@@ -17,7 +17,7 @@ const main = async (pem) => {
   // get basic geolocation data from IP address
   // limited to 45 HTTP requests per minute
   const ipRes = await fetch(
-    "https://geo.ipify.org/api/v1?apiKey=at_J6krgVR2g1WZElTrYjaekinz2py6z"
+    "https://geo.ipify.org/api/v1?apiKey=at_p3tEBvSKhHGUlWlLskfntBLT1sNRF"
   ).catch((error) => {
     console.error("IP address request failed: " + error);
   });
