@@ -5,7 +5,7 @@ const pemEncodedKey =
 const spreadsheetID = "1AOzMA60xYUxHI37kE5HOdUvuSchPK-_arOAj7IiICTQ";
 
 // this is a trial key
-const diffbotToken = "837e61b83a5050ebaa9d7d9bc8bf8626";
+const diffbotToken = "8ceee05f3cf0c41b5ee13ffeb4243b84";
 
 /**
  * Gets data from client's IP address and writes to Google Sheets
