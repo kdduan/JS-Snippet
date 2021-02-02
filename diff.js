@@ -17,7 +17,7 @@ const main = async (pem) => {
   // get basic geolocation data from IP address
   // limited to 45 HTTP requests per minute
   const ipRes = await fetch(
-    "https://geo.ipify.org/api/v1?apiKey=at_p3tEBvSKhHGUlWlLskfntBLT1sNRF"
+    "https://geo.ipify.org/api/v1?apiKey=at_J6krgVR2g1WZElTrYjaekinz2py6z"
   ).catch((error) => {
     console.error("IP address request failed: " + error);
   });
@@ -46,52 +46,52 @@ const main = async (pem) => {
   const currUrl = window.location.href;
 
   // initialize Diffbot data to empty strings
-  let DiffbotID = "";
-  let Name = "";
-  let Homepage = "";
-  let Description = "";
-  let Logo = "";
-  let Employees = "";
-  let Address = "";
-  let Industries = "";
-  let DiffbotFound = "FALSE";
+  // let DiffbotID = "";
+  // let Name = "";
+  // let Homepage = "";
+  // let Description = "";
+  // let Logo = "";
+  // let Employees = "";
+  // let Address = "";
+  // let Industries = "";
+  // let DiffbotFound = "FALSE";
 
-  // get enhanced data from IP address via DiffBot
-  const params = {
-    token: diffbotToken,
-    ip: IP,
-    size: 1,
-    threshold: 0,
-  };
+  // // get enhanced data from IP address via DiffBot
+  // const params = {
+  //   token: diffbotToken,
+  //   ip: IP,
+  //   size: 1,
+  //   threshold: 0,
+  // };
 
-  const diffRes = await fetch(
-    "https://kg.diffbot.com/kg/v3/enhance_endpoint?" +
-      new URLSearchParams(params)
-  ).catch((error) => {
-    console.error("DiffBot address request failed: " + error);
-  });
+  // const diffRes = await fetch(
+  //   "https://kg.diffbot.com/kg/v3/enhance_endpoint?" +
+  //     new URLSearchParams(params)
+  // ).catch((error) => {
+  //   console.error("DiffBot address request failed: " + error);
+  // });
 
-  // check for data if request succeeded
-  if (diffRes !== undefined && diffRes.ok) {
-    const diffJson = await diffRes.json();
-    const enhanceData = diffJson["data"];
+  // // check for data if request succeeded
+  // if (diffRes !== undefined && diffRes.ok) {
+  //   const diffJson = await diffRes.json();
+  //   const enhanceData = diffJson["data"];
 
-    // update with Diffbot data if found
-    if (enhanceData.length !== 0) {
-      DiffbotID = enhanceData[0]["entity"]["id"];
-      Name = enhanceData[0]["entity"]["name"];
-      Homepage = enhanceData[0]["entity"]["homepageUri"];
-      Description = enhanceData[0]["entity"]["description"];
-      Logo = enhanceData[0]["entity"]["logo"];
-      Employees =
-        enhanceData[0]["entity"]["nbEmployeesMin"] +
-        "-" +
-        enhanceData[0]["entity"]["nbEmployeesMax"];
-      Address = enhanceData[0]["entity"]["location"]["address"];
-      Industries = JSON.stringify(enhanceData[0]["entity"]["industries"]);
-      DiffbotFound = "TRUE";
-    }
-  }
+  //   // update with Diffbot data if found
+  //   if (enhanceData.length !== 0) {
+  //     DiffbotID = enhanceData[0]["entity"]["id"];
+  //     Name = enhanceData[0]["entity"]["name"];
+  //     Homepage = enhanceData[0]["entity"]["homepageUri"];
+  //     Description = enhanceData[0]["entity"]["description"];
+  //     Logo = enhanceData[0]["entity"]["logo"];
+  //     Employees =
+  //       enhanceData[0]["entity"]["nbEmployeesMin"] +
+  //       "-" +
+  //       enhanceData[0]["entity"]["nbEmployeesMax"];
+  //     Address = enhanceData[0]["entity"]["location"]["address"];
+  //     Industries = JSON.stringify(enhanceData[0]["entity"]["industries"]);
+  //     DiffbotFound = "TRUE";
+  //   }
+  // }
 
   // get Google Sheets API access token
   const accessToken = await getToken(pemEncodedKey).catch((error) => {
@@ -126,15 +126,15 @@ const main = async (pem) => {
                     { userEnteredValue: { stringValue: IP_LatLong } },
                     { userEnteredValue: { stringValue: IP_Postal } },
                     { userEnteredValue: { stringValue: IP_Timezone } },
-                    { userEnteredValue: { stringValue: DiffbotID } },
-                    { userEnteredValue: { stringValue: Name } },
-                    { userEnteredValue: { stringValue: Homepage } },
-                    { userEnteredValue: { stringValue: Description } },
-                    { userEnteredValue: { stringValue: Logo } },
-                    { userEnteredValue: { stringValue: Employees } },
-                    { userEnteredValue: { stringValue: Address } },
-                    { userEnteredValue: { stringValue: Industries } },
-                    { userEnteredValue: { stringValue: DiffbotFound } },
+                    // { userEnteredValue: { stringValue: DiffbotID } },
+                    // { userEnteredValue: { stringValue: Name } },
+                    // { userEnteredValue: { stringValue: Homepage } },
+                    // { userEnteredValue: { stringValue: Description } },
+                    // { userEnteredValue: { stringValue: Logo } },
+                    // { userEnteredValue: { stringValue: Employees } },
+                    // { userEnteredValue: { stringValue: Address } },
+                    // { userEnteredValue: { stringValue: Industries } },
+                    // { userEnteredValue: { stringValue: DiffbotFound } },
                   ],
                 },
               ],
